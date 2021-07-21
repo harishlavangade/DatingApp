@@ -20,8 +20,8 @@ export class AccountService {
   {
     //return this.http.post(this.baseUrl+'account/login',model);
     return this.http.post(this.baseUrl+'account/login',model).pipe(
-      map(( response: any ) => {
-        const user = response.token;
+      map(( response: any)  => {
+        const user = response;
         console.log(user);
         if(user)
         {
@@ -31,6 +31,7 @@ export class AccountService {
       })
     )
   }
+
 register(model:any){
 return this.http.post(this.baseUrl +'account/register',model).pipe(
   map((user: any) => {
