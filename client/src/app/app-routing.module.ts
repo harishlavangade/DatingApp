@@ -1,6 +1,8 @@
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NotFoundComponent } from './errors/not-found/not-found.component';
+import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
 import { HomeComponent } from './home/home.component';
 import { ListsComponent } from './lists/lists.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
@@ -21,7 +23,9 @@ const routes: Routes = [
     {path:'message',component:MessagesComponent},
   ]
 }, 
-  {path:'**',component:HomeComponent, pathMatch: 'full'},
+{path: 'error',component:TestErrorsComponent},
+{path: 'not-found',component:NotFoundComponent},
+{path:'**',component:HomeComponent, pathMatch: 'full'},
 ];
 
 @NgModule({
