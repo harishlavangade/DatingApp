@@ -23,11 +23,15 @@ export class AccountService {
     return this.http.post(this.baseUrl+'account/login',model).pipe(
       map(( response: any)  => {
         const user = response;
+        console.log('user account');
         console.log(user);
         if(user)
         {
           localStorage.setItem('user',JSON.stringify(user));
           this.currentUserSource.next(user);
+          console.log('currentUserSource');
+          console.log(this.currentUserSource);
+          console.log(this.currentUser$);
         }        
       })
     )

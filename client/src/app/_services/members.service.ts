@@ -25,11 +25,13 @@ parsedJson:any; // =   JSON.parse(localStorage.getItem('user')).token;;
   // }
 // Return the Member type array in specify in request http
   getMembers(){
-    return this.http.get<Member[]>(this.baseUrl+'users',httpOptions);
+    //return this.http.get<Member[]>(this.baseUrl+'users',httpOptions);
+    return this.http.get<Member[]>(this.baseUrl+'users');
   }
 
   getMember(username: string){
     return this.http.get<Member>(this.baseUrl+'users/'+username,httpOptions);
+   // return this.http.get<Member>(this.baseUrl+'users/'+ username);
   }
 }
 
