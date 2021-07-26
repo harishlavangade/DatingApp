@@ -11,5 +11,25 @@
        
         </div>
     </div>
+    <div class="col-8">
+        <tabset class="member-tabset">
+            <tab heading='About {{member.username}}'>
+            <h4>Description</h4>
+            <p>{{member.introduction}}</p>
+            <h4>Looking for</h4>
+            <p>{{member.age}}</p>
+        </tab>
+            <tab heading='Intrests'>
+            <h4>interests</h4>
+            <p>{{member.interests}}</p>
+            <h4>Looking for</h4>
+            <p>{{member.lastActive}}</p>
+        </tab>
+            <tab heading='Photos'>
+           <p>photo will go here</p>
+           <!-- <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery> -->
+        </tab>
+        </tabset>
+    </div>
 
 </div>

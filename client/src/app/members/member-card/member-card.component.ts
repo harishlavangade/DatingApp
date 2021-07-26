@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Member } from 'src/app/_models/Member';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 
 @Component({
   selector: 'app-member-card',
