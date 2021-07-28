@@ -8,6 +8,7 @@ import { Photo } from "./photo";
         knowAs?: any;
         created: Date;
         lastActive: Date;
+        lookingFor:string;
         gender: string;
         introduction: string;
         interests: string;
