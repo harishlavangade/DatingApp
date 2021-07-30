@@ -33,5 +33,9 @@ parsedJson:any; // =   JSON.parse(localStorage.getItem('user')).token;;
     return this.http.get<Member>(this.baseUrl+'users/'+username,httpOptions);
    // return this.http.get<Member>(this.baseUrl+'users/'+ username);
   }
+
+  updateMember(member:Member){
+    return this.http.put(this.baseUrl+'users',member);
+  }
 }
 
