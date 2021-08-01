@@ -9,7 +9,7 @@ import { Member } from '../_models/Member';
 const httpOptions = {
   headers: new HttpHeaders({
    
-    Authorization: 'Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJyYW0iLCJuYmYiOjE2MjcxMzAyNzAsImV4cCI6MTYyNzczNTA3MCwiaWF0IjoxNjI3MTMwMjcwfQ.vCJj0hpRjnCubycIoNwwdt0or_7Lf61AFe6R5cfsEpG3q3yf97QtDOiqrePeA0EkWXfW3xW2P84A6O1zOzP1uQ'
+    Authorization: 'Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJiYWtlciIsIm5iZiI6MTYyNzgxMjQ0NywiZXhwIjoxNjI4NDE3MjQ3LCJpYXQiOjE2Mjc4MTI0NDd9._tfYZAABgBbkCM7oYOD30VjgTAvoDiGVrsNkjOPBp7w17AnvSGadQZZb6JBrt_y40Ibe2QG0cDwJvatihcvbHg'
   })
 }
 
@@ -18,6 +18,7 @@ const httpOptions = {
 })
 export class MembersService {
 baseUrl = environment.apiUrl;
+token:any;
 members:Member[] =[];
 
 
@@ -25,8 +26,10 @@ members:Member[] =[];
 
  
   getMembers(){
-    //return this.http.get<Member[]>(this.baseUrl+'users',httpOptions);
-    if(this.members.length > 0 ) return of(this.members);
+    //console.log(httpOptions);
+   // return this.http.get<Member[]>(this.baseUrl+'users',httpOptions);
+   // if(this.members.length > 0 ) return of(this.members);
+   //console.log('d');
     return this.http.get<Member[]>(this.baseUrl+'users',httpOptions).pipe(
       map(members => {
         this.members = members;
@@ -37,16 +40,18 @@ members:Member[] =[];
 
   getMember(username: string){
     const member = this.members.find(x=>x.username ===username);
+    console.log(member);
     if(member !== undefined ) return of(member);
-    return this.http.get<Member>(this.baseUrl+'users/'+username,httpOptions);
+    return this.http.get<Member>(this.baseUrl+'users/'+username);
    // return this.http.get<Member>(this.baseUrl+'users/'+ username);
   }
 
   updateMember(member:Member){
-
+    //console.log(member);
     return this.http.put(this.baseUrl+'users',member,httpOptions).pipe(
       map(() =>{
         const index = this.members.indexOf(member);
+        //console.log(index);
         this.members= this.members;
       })
     );

@@ -25,12 +25,12 @@ export class NavComponent implements OnInit {
   {
     this.accountService.login(this.model).subscribe(response => {
      //console.log('NavCompentTS');
-     // console.log(response);
-     // this.currentUser$.subscribe(u => u.userName = response.userName); 
+      //console.log(response);
+     
       this.router.navigateByUrl('/members');
     });
     this.loggedIn=true;
-    console.log(this.model);
+    //console.log(this.model);
   }
 
   getCurrentUser(){
@@ -45,7 +45,10 @@ export class NavComponent implements OnInit {
   logout()
   {
     this.loggedIn=false;
+    //console.log('logout');
+    localStorage.removeItem('user');
     this.router.navigateByUrl('./');
+
   }
 
 }

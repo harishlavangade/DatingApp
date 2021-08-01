@@ -37,9 +37,10 @@ export class MemberEditComponent implements OnInit {
   }
 
   loadMember(){
+    console.log(this.user.username);
     this.memberService.getMember(this.user.username).subscribe(member => {
       this.member = member
-      console.log(member);
+      console.log(member.username);
       this.editForm?.reset(this.member);
     })
   }

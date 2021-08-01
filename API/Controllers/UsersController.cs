@@ -87,7 +87,7 @@ namespace API.Controllers
         [HttpPut]
         public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto)
         {
-            var username= User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var username= memberUpdateDto.username; //User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             var user = await _userRepository.GetUserByUserNameAsync(username);
             //automapper mapp the property
