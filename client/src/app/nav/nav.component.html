@@ -30,7 +30,7 @@
               </ul>
                <div class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown >
                 <!-- <div class="dropdown" *ngIf="loggedIn" dropdown >  -->
-                 <img src="{{ user.photoUrl }}" alt="{{user.username}}"> 
+                 <img src="{{ user.photoUrl }}" alt="{{user.username}}" class="max-height:20px;border:2px solid #fff;display:inline;" > 
                 <a  class="dropdown-toggle text-light" dropdownToggle >Welcome {{user.username}} </a>
                 <div class="dropdown-menu mt-3" *dropdownMenu> 
                   <a routerLink='/member/edit' class="dropdown-item">Edit profile</a>
