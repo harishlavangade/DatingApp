@@ -40,7 +40,7 @@ members:Member[] =[];
 
   getMember(username: string){
     const member = this.members.find(x=>x.username ===username);
-    console.log(member);
+    //console.log(member);
     if(member !== undefined ) return of(member);
     return this.http.get<Member>(this.baseUrl+'users/'+username);
    // return this.http.get<Member>(this.baseUrl+'users/'+ username);
@@ -56,5 +56,9 @@ members:Member[] =[];
       })
     );
   }
+  setMainPhoto(photoId:number){
+    return this.http.put(this.baseUrl+'users/set-main-photo/' + photoId,{});
+  }
+
 }
 

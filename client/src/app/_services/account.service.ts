@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { isNull } from '@angular/compiler/src/output/output_ast';
 import { Injectable } from '@angular/core';
+//import { copyFileSync } from 'fs';
 import { ReplaySubject } from 'rxjs';
 import {map} from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -20,13 +21,16 @@ export class AccountService {
   login(model:any)
   {
     //return this.http.post(this.baseUrl+'account/login',model);
-    return this.http.post(this.baseUrl+'account/login',model).pipe(
-      map(( response: any)  => {
+    return this.http.post(this.baseUrl + 'account/login',model).pipe(
+      map(( response: any )  => {
         const user = response;
+        console.log(response);
         if(user)
         {
+          this.setCurrentUser(user);
           localStorage.setItem('user',JSON.stringify(user));
           this.currentUserSource.next(user);
+          //console.log(this.currentUserSource);
         }        
       })
     )
@@ -37,14 +41,16 @@ return this.http.post(this.baseUrl +'account/register',model).pipe(
   map((user: any) => {
     if(user)
     {
-      localStorage.setItem('user',JSON.stringify(user));
-      this.currentUserSource.next(user);
+      this.setCurrentUser(user);
+     // localStorage.setItem('user',JSON.stringify(user));
+     // this.currentUserSource.next(user);
     }
     return user;
   })
 )
 }
   setCurrentUser(user: User){
+    localStorage.setItem('user',JSON.stringify(user));
     this.currentUserSource.next(user);
   }
 

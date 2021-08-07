@@ -27,7 +27,7 @@ export class MemberEditComponent implements OnInit {
     ,private toastr:ToastrService) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => {
       this.user= user
-      console.log(user);
+      //console.log(user);
     });
 
    }
@@ -37,10 +37,10 @@ export class MemberEditComponent implements OnInit {
   }
 
   loadMember(){
-    console.log(this.user.username);
+    //console.log(this.user.username);
     this.memberService.getMember(this.user.username).subscribe(member => {
       this.member = member
-      console.log(member.username);
+      //console.log(member.username);
       this.editForm?.reset(this.member);
     })
   }
