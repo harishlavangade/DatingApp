@@ -9,7 +9,7 @@ import { Member } from '../_models/Member';
 const httpOptions = {
   headers: new HttpHeaders({
    
-    Authorization: 'Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJiYWtlciIsIm5iZiI6MTYyNzgxMjQ0NywiZXhwIjoxNjI4NDE3MjQ3LCJpYXQiOjE2Mjc4MTI0NDd9._tfYZAABgBbkCM7oYOD30VjgTAvoDiGVrsNkjOPBp7w17AnvSGadQZZb6JBrt_y40Ibe2QG0cDwJvatihcvbHg'
+    Authorization: `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJiYWtlciIsIm5iZiI6MTYyODQxOTQ3MiwiZXhwIjoxNjI5MDI0MjcyLCJpYXQiOjE2Mjg0MTk0NzJ9.NBtQ3GKmk8v28WmHtOxdKo3jNqkCDcfnsB6eKGjJrBvgsGHcf5zT1u3xe7dEFZp5M4UGEhc0SSiv1KLuNCw6Fw`
   })
 }
 
@@ -30,6 +30,7 @@ members:Member[] =[];
    // return this.http.get<Member[]>(this.baseUrl+'users',httpOptions);
    // if(this.members.length > 0 ) return of(this.members);
    //console.log('d');
+   //console.log('getMember');
     return this.http.get<Member[]>(this.baseUrl+'users',httpOptions).pipe(
       map(members => {
         this.members = members;
@@ -40,9 +41,10 @@ members:Member[] =[];
 
   getMember(username: string){
     const member = this.members.find(x=>x.username ===username);
+    
     //console.log(member);
     if(member !== undefined ) return of(member);
-    return this.http.get<Member>(this.baseUrl+'users/'+username);
+    return this.http.get<Member>(this.baseUrl+'users/'+username,httpOptions);
    // return this.http.get<Member>(this.baseUrl+'users/'+ username);
   }
 
