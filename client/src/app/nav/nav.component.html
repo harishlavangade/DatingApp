@@ -28,9 +28,10 @@
                   </li>
                   
               </ul>
+              <div *ngIf="loggedIn">             
                <div class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown >
                 <!-- <div class="dropdown" *ngIf="loggedIn" dropdown >  -->
-                 <img src="{{ user.photoUrl }}" alt="{{user.username}}" class="border:2px solid #fff;display:inline;height:20px;" > 
+                 <img src="{{ user.photoUrl }}" alt="{{user.username}}" style="border:2px solid #fff;display:inline;height:50px;" > 
                 <a  class="dropdown-toggle text-light" dropdownToggle >Welcome {{user.username}} </a>
                 <div class="dropdown-menu mt-3" *dropdownMenu> 
                   <a routerLink='/member/edit' class="dropdown-item">Edit profile</a>
@@ -38,6 +39,7 @@
                   <a class="dropdown-item" (click)="logout()">Logout</a>
                 </div>
               </div>
+            </div>
               <!-- <form *ngIf="(currentUser$ |async) === null" #loginForm="ngForm" class="d-flex" (ngSubmit)="login()" autocomplete="off" > -->
                 <form *ngIf="!loggedIn" #loginForm="ngForm" class="d-flex" (ngSubmit)="login()" autocomplete="off" >
                 <input name="username" [(ngModel)]="model.username" class="form-control me-2" type="text" placeholder="Username">

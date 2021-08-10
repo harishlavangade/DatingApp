@@ -9,7 +9,7 @@ import { Member } from '../_models/Member';
 const httpOptions = {
   headers: new HttpHeaders({
    
-    Authorization: `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJiYWtlciIsIm5iZiI6MTYyODQxOTQ3MiwiZXhwIjoxNjI5MDI0MjcyLCJpYXQiOjE2Mjg0MTk0NzJ9.NBtQ3GKmk8v28WmHtOxdKo3jNqkCDcfnsB6eKGjJrBvgsGHcf5zT1u3xe7dEFZp5M4UGEhc0SSiv1KLuNCw6Fw`
+    Authorization: `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJnYXJjaWEiLCJuYmYiOjE2Mjg2MDA5NTQsImV4cCI6MTYyOTIwNTc1NCwiaWF0IjoxNjI4NjAwOTU0fQ.YL_Odzltq88GKWMPTVzG0qXM33t2X0wwY26e6bpvK_P7TmviaoMoii4mNLKjPHZW16QHxE1X9rsE_EVzvur2iw`
   })
 }
 

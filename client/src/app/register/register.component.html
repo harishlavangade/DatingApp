@@ -1,53 +1,40 @@
-<form [formGroup]='registerForm' (ngSubmit)="register()"  autocomplete="off">
-<h2 class="text-center text-primary">Sign up</h2>
-<hr> 
-
-     <!-- This build a new component text-input and shift a all code in single file.  -->
+<form [formGroup]='registerForm' (ngSubmit)="register()" autocomplete="off">
+    <h2 class="text-center text-primary">Sign up</h2>
+    <hr>
     <div class="form-group">
-    <input
-    [class.is-invalid]='registerForm.get("username")?.errors && registerForm.get("username")?.touched'
-     type="text"  class="form-control" formControlName="username" placeholder="Username" >
-     <div class="invalid-feedback">Please enter user name</div>
-</div>
-
-<!-- <div class="form-group">
-    <label>who is your faviorite user?</label>
+        <input [class.is-invalid]='registerForm.get("username")?.errors && registerForm.get("username")?.touched'
+            type="text" class="form-control" formControlName="username" placeholder="Username">
+        <div class="invalid-feedback">Please enter user name</div>
+    </div>
+    <div class="form-group">
+        <input [class.is-invalid]='registerForm.get("password")?.errors && registerForm.get("password")?.touched'
+            type="password" class="form-control" formControlName="password" placeholder="Password">
+        <div *ngIf="registerForm.get('password')?.hasError('required')" class="invalid-feedback">Please enter passowrd
+        </div>
+        <div *ngIf="registerForm.get('password')?.hasError('minlength')" class="invalid-feedback">Passowrd must be at
+            least 4 charcters</div>
+        <div *ngIf="registerForm.get('password')?.hasError('maxlength')" class="invalid-feedback">Passowrd must be at
+            most 8 charcters </div>
+    </div>
+    <div class="form-group">
+        <input
+            [class.is-invalid]='registerForm.get("confirmPassword")?.errors && registerForm.get("confirmPassword")?.touched'
+            type="password" class="form-control" formControlName="confirmPassword" placeholder="Confirm Password">
+        <div *ngIf="registerForm.get('confirmPassword')?.hasError('required')" class="invalid-feedback">Please enter
+            Confirm passowrd </div>
+        <div *ngIf="registerForm.get('confirmPassword')?.hasError('minlength')" class="invalid-feedback">Confirm
+            Passowrd must be at least 4 charcters</div>
+        <div *ngIf="registerForm.get('confirmPassword')?.hasError('maxlength')" class="invalid-feedback">Confirm
+            Passowrd must be at most 8 charcters </div>
+    </div>
+    <!-- <app-text-input [formControl]?='registerForm.controls["username"]' [label]='"username"' ></app-text-input>
+    <app-text-input [formControl]?='registerForm.controls["password"]' [label]='"password"' [type]='"password"' ></app-text-input>
+    <app-text-input [formControl]?='registerForm.controls["confirmPassword"]' [label]='"confirm Password"' [type]='"password"' ></app-text-input>  -->
     <br>
-    <select  class="form-control">
-        <option style="height: 15px;" class="form-control" *ngFor="let user1 of userFormHomeComponent" [value]="user1.userName">
-            {{user1.userName}} 
-         </option>
-    </select>
- </div> -->
-
-
-     <!-- This build a new component text-input and shift a all code in single file. -->
-     <div class="form-group">
-    <input 
-    [class.is-invalid]='registerForm.get("password")?.errors && registerForm.get("password")?.touched'
-    type="password"  class="form-control" formControlName="password"  placeholder="Password" >
-    <div *ngIf="registerForm.get('password')?.hasError('required')" class="invalid-feedback">Please enter passowrd </div>
-    <div *ngIf="registerForm.get('password')?.hasError('minlength')" class="invalid-feedback">Passowrd must be at least 4 charcters</div>
-    <div *ngIf="registerForm.get('password')?.hasError('maxlength')" class="invalid-feedback">Passowrd must be at most 8 charcters </div>
-</div> 
- 
-    <!-- This build a new component text-input and shift a all code in single file. -->
-    <div class="form-group">
-    <input 
-    [class.is-invalid]='registerForm.get("confirmPassword")?.errors && registerForm.get("confirmPassword")?.touched'
-    type="password"  class="form-control" formControlName="confirmPassword"  placeholder="Confirm Password" >
-    <div *ngIf="registerForm.get('confirmPassword')?.hasError('required')" class="invalid-feedback">Please enter Confirm passowrd </div>
-    <div *ngIf="registerForm.get('confirmPassword')?.hasError('minlength')" class="invalid-feedback">Confirm Passowrd must be at least 4 charcters</div>
-    <div *ngIf="registerForm.get('confirmPassword')?.hasError('maxlength')" class="invalid-feedback">Confirm Passowrd must be at most 8 charcters </div>
-</div> 
-<!-- <app-text-input [formControl]='registerForm.controls["username"]' [label]='"username"' ></app-text-input>
-<app-text-input [formControl]='registerForm.controls["password"]' [label]='"password"' [type]='"password"' ></app-text-input>
-<app-text-input [formControl]='registerForm.controls["confirmPassword"]' [label]='"confirm Password"' [type]='"password"' ></app-text-input> -->
-<br>
-<div class="form-group text-center">
-    <button class="btn btn-success mr-2" type="submit">Register</button>
-    <button class="btn btn-cancel mr-2" (click)="cancel()" type="button">Cancel</button>
-</div>
+    <div class="form-group text-center">
+        <button class="btn btn-success mr-2" type="submit">Register</button>
+        <button class="btn btn-cancel mr-2" (click)="cancel()" type="button">Cancel</button>
+    </div>
 
 </form>
 <p>form Value : {{registerForm?.value | json}}</p>
