@@ -7,6 +7,7 @@ using System.Linq;
 using API.DTOs;
 using AutoMapper.QueryableExtensions;
 using AutoMapper;
+using API.Helpers;
 
 namespace API.Data
 {
@@ -19,6 +20,20 @@ namespace API.Data
         {
             _mapper = mapper;
             _context = context;
+        }
+
+       
+
+
+ 
+
+        public async Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParms)
+        {
+             var query = _context.Users
+                            .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
+                            .AsNoTracking();
+
+                return await PagedList<MemberDto>.CreateAsync(query,userParms.PageNumber,userParms.PageSize);            
         }
 
         public async Task<MemberDto> GetMemberAsync(string username)
@@ -46,6 +61,9 @@ namespace API.Data
                                  .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
                                  .ToListAsync();
         }
+
+        
+
         public async Task<AppUser> GetUserByIdAsync(int id)
         {
             return await _context.Users.FindAsync(id);

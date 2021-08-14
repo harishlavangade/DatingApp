@@ -27,7 +27,13 @@
         </tab>
             <tab heading='Photos'>
            <p>photo will go here</p>
-           <!-- <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery> -->
+            <div class="img" *ngFor="let item of galleryImages">
+                <!-- <img src="{{item.imageUrls || './assets/user.png'}}" class="card-img-top img-thumbnail"> -->
+                 <h1>{{item}}</h1>   
+                 <!-- <img src="{{member.photoUrl || './assets/user.png'}}" alt="{{member.username}}" class="card-img-top img-thumbnail"> -->
+            </div>    
+
+            <!-- <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>   -->
         </tab>
         </tabset>
     </div>

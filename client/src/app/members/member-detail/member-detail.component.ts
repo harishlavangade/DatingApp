@@ -13,9 +13,9 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 })
 export class MemberDetailComponent implements OnInit {
   member!: Member;
-  galleryOptions?: NgxGalleryOptions[];
-  galleryImages?: NgxGalleryImage[];
-  userName?:string;
+  galleryOptions: NgxGalleryOptions[]=[];
+  galleryImages: NgxGalleryImage[]=[];
+  userName:string='';
 
 
   constructor(private memberService:MembersService,private route:ActivatedRoute) { }
@@ -31,18 +31,16 @@ export class MemberDetailComponent implements OnInit {
       imageAnimation:NgxGalleryAnimation.Slide,
       preview:false
     }]
-    
+    console.log(this.galleryImages);
+    //console.log(this.galleryOptions);
   }
 
-  loadMember(){
-   //console.log('Load memeber');
-    console.log(this.route.snapshot.paramMap.get('username'));
-    this.userName = JSON.stringify(this.route.snapshot.paramMap.get('username'));
-    //this.memberService.getMember(JSON.stringify(this.route.snapshot.paramMap.get('username'))).subscribe(member =>{
-      this.memberService.getMember(this.userName).subscribe(member =>{
-      this.member= member;
-      this.galleryImages = this.getImages();
-    })
+  loadMember() {
+    this.memberService.getMember(this.route.snapshot.paramMap.get('username') || 'jo')
+      .subscribe(member => {
+        this.member = member;
+        this.galleryImages = this.getImages();
+      })
   }
   getImages(): NgxGalleryImage[]{
     const imageUrls=[];

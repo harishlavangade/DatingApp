@@ -1,10 +1,11 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 //import { parse } from 'path';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Member } from '../_models/Member';
+import { PaginatedResult } from '../_models/pagination';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -20,24 +21,45 @@ export class MembersService {
 baseUrl = environment.apiUrl;
 token:any;
 members:Member[] =[];
+paginatedResult:PaginatedResult<Member[]> = new PaginatedResult<Member[]>();
 
 
   constructor(private http:HttpClient) { }
 
+  getMembers(page?:number,itemsPerPage?:number ){
+
+    let params = new HttpParams();
+
+    if(page !== null && itemsPerPage !== null){
+      params = params.append('pageNumber',page!.toString());
+      params = params.append('pageNumber',itemsPerPage!.toString());
+     // params = params.append('Authorization',`Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJnYXJjaWEiLCJuYmYiOjE2Mjg2MDA5NTQsImV4cCI6MTYyOTIwNTc1NCwiaWF0IjoxNjI4NjAwOTU0fQ.YL_Odzltq88GKWMPTVzG0qXM33t2X0wwY26e6bpvK_P7TmviaoMoii4mNLKjPHZW16QHxE1X9rsE_EVzvur2iw`);
+    }
+
+    return this.http.get<Member[]>(this.baseUrl+'users' ,{observe:'response',params}).pipe(
+      map(response =>{
+        this.paginatedResult.result = response.body || [];
+        if(response.headers.get('pagination')!== null)
+        {
+            this.paginatedResult.pagination = JSON.parse(response.headers.get('pagination')|| '{}');
+        }
+        return this.paginatedResult;
+      }))
+  }
  
-  getMembers(){
-    //console.log(httpOptions);
-   // return this.http.get<Member[]>(this.baseUrl+'users',httpOptions);
-   // if(this.members.length > 0 ) return of(this.members);
-   //console.log('d');
-   //console.log('getMember');
-    return this.http.get<Member[]>(this.baseUrl+'users',httpOptions).pipe(
-      map(members => {
-        this.members = members;
-        return members;
-      })
-    )
-  } 
+  // getMembers(){
+  //   //console.log(httpOptions);
+  //  // return this.http.get<Member[]>(this.baseUrl+'users',httpOptions);
+  //  // if(this.members.length > 0 ) return of(this.members);
+  //  //console.log('d');
+  //  //console.log('getMember');
+  //   return this.http.get<Member[]>(this.baseUrl+'users',httpOptions).pipe(
+  //     map(members => {
+  //       this.members = members;
+  //       return members;
+  //     })
+  //   )
+  // } 
 
   getMember(username: string){
     const member = this.members.find(x=>x.username ===username);
