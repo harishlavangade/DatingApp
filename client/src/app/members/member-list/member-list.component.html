@@ -1,5 +1,13 @@
-<div *ngFor ="let member of members" class="row">
-    <div class="col-2">
-        <app-member-card [member]="member" ></app-member-card>
+<div *ngFor ="let member of members" style=" width: 350px; height: 200px; float: left;margin-top: 2px;margin-bottom: 5px;margin: 5px;">
+    <div class="col-4">
+        <app-member-card [member]="member"></app-member-card>
     </div>
+</div>
+<div class="d-flex justify-content-center" *ngIf="pagination" >
+    <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems"
+            [itemsPerPage] ="pagination.itemsPerPage"
+            [(ngModel)]="pagination.currentPage"
+            (pageChanged) ="pageChanged($event)"
+            previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+    </pagination>
 </div>

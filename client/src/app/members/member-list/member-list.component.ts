@@ -12,9 +12,9 @@ import { MembersService } from 'src/app/_services/members.service';
 export class MemberListComponent implements OnInit {
  // members$!: Observable<Member[]>;
  members:Member[]=[];
- pagination?:Pagination;
+ pagination:Pagination | undefined;
  pageNumber =1;
- pageSize=5;
+ pageSize=2;
 
   constructor(private memberService:MembersService) { }
 
@@ -33,6 +33,12 @@ loadMembers()
     this.members = response.result ||[];
     this.pagination = response.pagination;
   })
+}
+
+pageChanged(event:any)
+{
+  this.pageNumber = event.page;
+  this.loadMembers();
 }
 
   // loadMembers(){

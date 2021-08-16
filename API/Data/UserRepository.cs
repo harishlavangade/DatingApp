@@ -8,6 +8,7 @@ using API.DTOs;
 using AutoMapper.QueryableExtensions;
 using AutoMapper;
 using API.Helpers;
+using System;
 
 namespace API.Data
 {
@@ -29,11 +30,22 @@ namespace API.Data
 
         public async Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParms)
         {
-             var query = _context.Users
-                            .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
-                            .AsNoTracking();
+             var query = _context.Users.AsQueryable();
+                            //.ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
+                            //.AsNoTracking()
+                            //.AsQueryable();
 
-                return await PagedList<MemberDto>.CreateAsync(query,userParms.PageNumber,userParms.PageSize);            
+                    query = query.Where(u => u.UserName != userParms.CurrentUserName);   
+                    query = query.Where(u => u.Gender == userParms.Gender);   
+
+                    var minDob = DateTime.Today.AddYears(-userParms.MaxAge-1);
+                    var maxDob = DateTime.Today.AddYears(-userParms.MinAge);
+
+                    query = query.Where(u => u.DateOfBirth >= minDob && u.DateOfBirth <= maxDob);  
+
+                return await PagedList<MemberDto>.CreateAsync(query.ProjectTo<MemberDto>(_mapper
+                .ConfigurationProvider).AsNoTracking()
+                ,userParms.PageNumber,userParms.PageSize);            
         }
 
         public async Task<MemberDto> GetMemberAsync(string username)
