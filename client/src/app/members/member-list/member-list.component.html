@@ -29,12 +29,12 @@
 
 </div>  
 
-<div *ngFor ="let member of members" style=" width: 350px; height: 200px; float: left;margin-top: 2px;margin-bottom: 5px;margin: 5px;">
+<div *ngFor ="let member of members" style=" width: 450px; height: 200px; float: left;margin-top: 2px;margin-bottom: 5px;margin: 5px;color: crimson; border: 4px;">
     <div class="col-4">
         <app-member-card [member]="member"></app-member-card>
     </div>
 </div>
-<div style="width: 50%; display: table;" *ngIf="pagination" >
+<div style="width: 100%; display: table;" *ngIf="pagination" >
     <div style="display: table-row">
         <div style="display: table-cell;">
     <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems"
