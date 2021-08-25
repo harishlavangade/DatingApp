@@ -22,6 +22,7 @@ export class MembersService {
   baseUrl = environment.apiUrl;
   token: any;
   members: Member[] = [];
+  memberCache = new Map();
 
 
 
@@ -29,6 +30,15 @@ export class MembersService {
 
   getMembers(userParm: UserParams) {
 
+    console.log(Object.values(userParm).join('-'));
+
+    var response = this.memberCache.get(Object.values(userParm).join('-'));
+
+    if(response) 
+    {
+      return of(response);
+    }
+     
     let params = this.getPaginationHeader(userParm.pageNumber, userParm.pageSize);
 
     params = params.append('minAge', userParm.minAge.toString());
@@ -37,6 +47,10 @@ export class MembersService {
     params = params.append('orderBy', userParm.orderBy.toString());
 
     return this.getPaginatedResult<Member[]>(this.baseUrl + 'users', params)
+    .pipe(map(response =>{
+      this.memberCache.set(Object.values(userParm).join('-'),response);
+      return response;
+    }))
   }
 
 
