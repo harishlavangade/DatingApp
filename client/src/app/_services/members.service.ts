@@ -2,11 +2,12 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 //import { parse } from 'path';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Member } from '../_models/Member';
 import { PaginatedResult } from '../_models/pagination';
 import { UserParams } from '../_models/userParams';
+import { AccountService } from './account.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -23,10 +24,31 @@ export class MembersService {
   token: any;
   members: Member[] = [];
   memberCache = new Map();
+  user!: import("c:/Harish/VisualStudio_Projects/DatingApp/client/src/app/_models/user").User;
+  userParams: UserParams |undefined;
 
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private accountService: AccountService) {
+    this.accountService.currentUser$.pipe(take(1)).subscribe(user => {
+      this.user = user;
+      this.userParams = new UserParams(user);
+  })
+   }
+
+   getUserParams()
+   {
+     return this.userParams;
+   }
+   setUserParams(params:UserParams | undefined)
+   {
+     this.userParams =params;
+   }
+
+   retSetUserParams(){
+     this.userParams = new UserParams(this.user);
+     return this.userParams;
+   }
 
   getMembers(userParm: UserParams) {
 
@@ -55,8 +77,11 @@ export class MembersService {
 
 
   getMember(username: string) {
-    const member = this.members.find(x => x.username === username);
-    if (member !== undefined) return of(member);
+  //console.log(this.memberCache);
+  const member = [...this.memberCache.values()]
+        .reduce((arr,elem)=> arr.concat(elem.result),[])
+        .find((member:Member)=>member.username === username);
+  //console.log(member);
     return this.http.get<Member>(this.baseUrl + 'users/' + username, httpOptions);
   }
 
